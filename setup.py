@@ -7,7 +7,7 @@ with open(os.path.join(base_dir, "README.md"), "r") as f:
 
 setuptools.setup(
     name="PerspectiveTransform",
-    version="1.0.0",
+    version="1.0.1",
     author="GoatWang",
     author_email="jeremywang@taicon.com",
     description="PerspectiveTransform",

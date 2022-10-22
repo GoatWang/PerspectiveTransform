@@ -81,7 +81,7 @@ if __name__ == '__main__':
     lake_polys_trans = transform_polys(lake_polys, M)
 
 
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(40, 20))
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(30, 15))
 
     ax1.imshow(X[:, :, ::-1])
     ax1.add_patch(Polygon(pts_image, edgecolor='blue', linewidth=2, fill=False))
