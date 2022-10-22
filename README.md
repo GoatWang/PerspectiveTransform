@@ -6,3 +6,8 @@ first version
 ```
 python3 setup.py bdist_wheel
 ```
+
+# Test
+```
+python3 main.py
+```
