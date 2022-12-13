@@ -70,6 +70,16 @@ if __name__ == '__main__':
     # txt_fp = "Data/2022-12-13/17h05m36s.mp4/0000370759.txt"
     # json_fp = "Data/2022-12-13/17h05m36s.mp4/0000370759.json"
 
+    # img_fp = "Data/2022-12-13/17h05m36s.mp4/0001040416.png"
+    # txt_fp = "Data/2022-12-13/17h05m36s.mp4/0001040416.txt"
+    # json_fp = "Data/2022-12-13/17h05m36s.mp4/0001040416.json"
+
+    # img_fp = "Data/2022-12-13/17h05m36s.mp4/0001060916.png"
+    # txt_fp = "Data/2022-12-13/17h05m36s.mp4/0001060916.txt"
+    # json_fp = "Data/2022-12-13/17h05m36s.mp4/0001060916.json"
+
+
+
     # img_size = (720, 1280) # row, col
 
     X = cv2.imread(img_fp)
@@ -87,21 +97,23 @@ if __name__ == '__main__':
     person_pts_trans = transform_pts(person_pts, M)
     lake_polys_trans = transform_polys(lake_polys, M)
 
-    for p in person_pts_trans:
-        print("dist", ShpPoly(lake_polys_trans[0]).exterior.distance(Point(p)))
+    dists = ["%.1fm"%(ShpPoly(lake_polys_trans[0]).exterior.distance(Point(p))) for p in person_pts_trans]
+    dists_str = ", ".join(dists)
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(30, 15))
 
+    ax1.set_title("Original Image")
     ax1.imshow(X[:, :, ::-1])
     ax1.add_patch(Polygon(pts_image, edgecolor='blue', linewidth=2, fill=False))
     for poly in lake_polys:
         ax1.add_patch(Polygon(poly, edgecolor='red', linewidth=2, fill=False))
-    ax1.scatter(person_pts[:, 0], person_pts[:, 1], s=50, color='green')
+    ax1.scatter(person_pts[:, 0], person_pts[:, 1], s=10, color='green')
 
+    ax2.set_title("Bird View Image (" + dists_str + ")")
     ax2.add_patch(Polygon(pts_world, edgecolor='blue', linewidth=2, fill=False))
     for poly in lake_polys_trans:
         ax2.add_patch(Polygon(poly, edgecolor='red', linewidth=2, fill=False))
-    ax2.scatter(person_pts_trans[:, 0], person_pts_trans[:, 1], s=50, color='green')
+    ax2.scatter(person_pts_trans[:, 0], person_pts_trans[:, 1], s=10, color='green')
         
     # plt.show()
     date_str = datetime.now().strftime("%Y%m%d%H%M%S")
